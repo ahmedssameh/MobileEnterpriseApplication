@@ -23,5 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware'=>'api','prefix'=>'Auth'],function ($router){
     Route::Post('/register',[AuthController::class,'register']);
     Route::Post('/login',[AuthController::class,'login']);
-    Route::Put('/update',[EditProfileController::class,'update']);
+    Route::Patch('/update',[EditProfileController::class,'update']);
 });

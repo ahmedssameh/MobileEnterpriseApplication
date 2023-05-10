@@ -26,10 +26,7 @@ class EditProfileController extends Controller
 
 
 
-        if($validatedData->fails()){
-            $errorString = implode("\n", $validatedData->errors()->all());
-            return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
-        }
+
 
         $user = auth()->user();
 
