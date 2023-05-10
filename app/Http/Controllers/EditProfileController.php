@@ -17,14 +17,11 @@ class EditProfileController extends Controller
             'name'=>'required',
             'contact_person_name'=>'required',
             'contact_person_phone_number'=> 'required',
-            'email'=>'required|string|email|unique:users',
             'company_address'=>'required',
             'company_size'=>'required',
-            'password'=>'required|string|confirmed',
         ]);
 
-        unset($validatedData['email']);
-        unset($validatedData['password']);
+
         if($validatedData->fails()){
             $errorString = implode("\n", $validatedData->errors()->all());
             return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
