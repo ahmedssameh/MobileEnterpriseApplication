@@ -15,18 +15,25 @@ class EditProfileController extends Controller
 {
 
     public function update(Request $request){
-        $user = auth()->user();
 
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'contact_person_name' => 'required',
-            'contact_person_phone_number' => 'required',
-            'company_address' => 'required',
-            'company_size' => 'required',
+        $validatedData = Validator::make($request->all(),[
+            'name'=>'required',
+            'contact_person_name'=>'required',
+            'contact_person_phone_number'=> 'required',
+            'company_address'=>'required',
+            'company_size'=>'required',
         ]);
 
 
-        $user->update($validatedData);
+
+        if($validatedData->fails()){
+            $errorString = implode("\n", $validatedData->errors()->all());
+            return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
+        }
+
+        $user = auth()->user();
+
+        $user->update(array_merge($validatedData->validated()));
 
         return response()->json(['message'=> 'User is updated',
             'user'=> $user
