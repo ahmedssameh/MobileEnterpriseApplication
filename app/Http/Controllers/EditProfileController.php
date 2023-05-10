@@ -10,11 +10,8 @@ use App\Models\User;
 
 class EditProfileController extends Controller
 {
-    public function _construct(){
-        $this->middleware('auth:api',['except'=>['update']]);
-    }
-    public function update(Request $request)
-    {
+
+    public function update(Request $request){
 
         $validatedData = Validator::make($request->all(),[
             'name'=>'required',
