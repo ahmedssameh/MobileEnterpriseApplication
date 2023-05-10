@@ -11,7 +11,6 @@ class EditProfileController extends Controller
 {
     public function update(Request $request)
     {
-        $user = auth()->user();
 
         $validatedData = Validator::make($request->all(),[
             'name'=>'required',
@@ -22,10 +21,13 @@ class EditProfileController extends Controller
         ]);
 
 
+
         if($validatedData->fails()){
             $errorString = implode("\n", $validatedData->errors()->all());
             return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
         }
+
+        $user = auth()->user();
 
         $user->update(array_merge($validatedData->validated()));
 
