@@ -27,7 +27,7 @@ class AuthController extends Controller
 
         if($validator->fails()){
             $errorString = implode("\n", $validator->errors()->all());
-           return response()->json(['status'=>'error','details'=>$errorString],400)->header('Content-Type', 'application/json');
+           return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
         }
 
         $user = User::create(array_merge($validator->validated(),
@@ -42,6 +42,7 @@ class AuthController extends Controller
 
 
     }
+
 
     public function login(Request $request){
         $validator = Validator::make($request->all(),[
