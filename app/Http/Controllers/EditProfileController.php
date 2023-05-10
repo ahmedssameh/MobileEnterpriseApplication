@@ -24,6 +24,7 @@ class EditProfileController extends Controller
         ]);
 
         unset($validatedData['email']);
+        unset($validatedData['password']);
         if($validatedData->fails()){
             $errorString = implode("\n", $validatedData->errors()->all());
             return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
