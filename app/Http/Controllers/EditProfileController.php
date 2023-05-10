@@ -23,7 +23,7 @@ class EditProfileController extends Controller
             'password'=>'required|string|confirmed',
         ]);
 
-        unset($validatedData['field_to_exclude']);
+        unset($validatedData['email']);
         if($validatedData->fails()){
             $errorString = implode("\n", $validatedData->errors()->all());
             return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
