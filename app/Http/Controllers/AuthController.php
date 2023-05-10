@@ -26,7 +26,7 @@ class AuthController extends Controller
 
 
         if($validator->fails()){
-           return response()->json($validator->errors(),400)->header('Content-Type', 'application/json');
+           return response()->json(['message'=>$validator->errors()],400)->header('Content-Type', 'application/json');
         }
 
         $user = User::create(array_merge($validator->validated(),
