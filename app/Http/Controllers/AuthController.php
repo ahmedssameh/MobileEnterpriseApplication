@@ -15,18 +15,13 @@ class AuthController extends Controller
     public function register(Request $request){
 
         $validator = Validator::make($request->all(),[
-            'name'=>'required',
-            'contact_person_name'=>'required',
-            'contact_person_phone_number'=> 'required',
-            'email'=>'required|string|email|unique:users',
-            'company_address'=>'required',
-            'company_size'=>'required',
-            'password'=>'required|string|confirmed',
+            'email'=>'unique:users',
         ]);
 
 
         if($validator->fails()){
-           return response()->json(['message'=>$validator->errors()],400)->header('Content-Type', 'application/json');
+            $errorString = implode("\n", $validator->errors()->all());
+            return response()->json(['status'=>'error','details'=>$errorString],400)->header('Content-Type', 'application/json');
         }
 
         $user = User::create(array_merge($validator->validated(),
