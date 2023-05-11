@@ -67,5 +67,21 @@ class EditProfileController extends Controller
         return response()->json(['message' => 'Password changed successfully']);
     }
 
+    public function getCompany(){
+        $user = auth()->user();
+
+        if($user ==null){
+            return response()->json(['status' => 'Unauthorized'],401);
+        }
+
+        return response()->json(['message' => 'My profile',
+                'user' => $user
+            ],
+                201
+            );
+
+
+    }
+
 
 }
