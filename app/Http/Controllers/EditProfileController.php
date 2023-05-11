@@ -24,6 +24,7 @@ class EditProfileController extends Controller
             'contact_person_phone_number'=> 'required',
             'company_address'=>'required',
             'company_size'=>'required',
+            'photo',
         ]);
 
 
