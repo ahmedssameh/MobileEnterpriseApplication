@@ -16,6 +16,8 @@ class EditProfileController extends Controller
 
     public function update(Request $request){
 
+        $user = auth()->user();
+
         $validatedData = Validator::make($request->all(),[
             'name'=>'required',
             'contact_person_name'=>'required',
@@ -31,7 +33,7 @@ class EditProfileController extends Controller
             return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
         }
 
-        $user = auth()->user();
+
 
         $user->update(array_merge($validatedData->validated()));
 
@@ -41,5 +43,29 @@ class EditProfileController extends Controller
             201
         );
     }
+
+
+    public function changePassword(Request $request)
+    {
+        $user = auth()->user();
+
+        // Validate the request data
+        $validatedData = $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        // Verify the old password
+        if (!password_verify($validatedData['old_password'], $user->getAuthPassword())) {
+            return response()->json(['message' => 'Invalid old password'], 401);
+        }
+
+        // Update the user's password
+        $user->password = bcrypt($validatedData['new_password']);
+        $user->save();
+
+        return response()->json(['message' => 'Password changed successfully']);
+    }
+
 
 }

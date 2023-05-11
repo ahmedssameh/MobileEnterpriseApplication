@@ -24,4 +24,5 @@ Route::group(['middleware'=>'api','prefix'=>'Auth'],function ($router){
     Route::Post('/register',[AuthController::class,'register']);
     Route::Post('/login',[AuthController::class,'login']);
     Route::Patch('/update',[EditProfileController::class,'update']);
+    Route::Patch('/changePassword',[EditProfileController::class,'changePassword']);
 });
