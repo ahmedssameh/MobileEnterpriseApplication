@@ -22,7 +22,8 @@ class AuthController extends Controller
             'lang'=>'required',
             'lat'=>'required',
             'company_address'=>'required',
-            'company_size'=>'required',
+            'company_size'=>'string',
+            'company_industry'=>'string',
             'password'=>'required|string|confirmed',
         ]);
 
