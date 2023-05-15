@@ -63,5 +63,13 @@ class BusinessServiceController extends Controller
 
     }
 
+    public function getFavoriteServices()
+    {
+        $user = Auth::user();
+        $favoriteServices = $user->fav_service()->get();
+
+        return response()->json($favoriteServices);
+    }
+
 
 }
