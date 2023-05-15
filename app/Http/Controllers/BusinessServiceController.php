@@ -77,5 +77,35 @@ class BusinessServiceController extends Controller
         }
     }
 
+    public function getServiceCompany(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'service_id' => 'required|exists:business_service,id',
+        ]);
+
+
+        if ($validator->fails()) {
+            $errorString = implode("\n", $validator->errors()->all());
+            return response()->json(['details' => $errorString], 400)->header('Content-Type', 'application/json');
+        }
+
+        $businessService = business_service::find($validator);
+
+        if ($businessService) {
+
+            return response()->json(['message' => 'The company profile of this service',
+                'Company Profile' => $businessService->user
+            ],
+                201
+            );
+        }
+
+        return response()->json(['error' => 'User not found'], ResponseAlias::HTTP_NOT_FOUND);
+
+    }
+
+
+
 
 }
