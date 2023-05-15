@@ -92,7 +92,7 @@ class BusinessServiceController extends Controller
 
         $businessService = business_service::find(array_merge($validator->validated(),
         ));
-        $user=$businessService->User;
+        $user=$businessService->user_id;
         if ($businessService) {
 
             return response()->json(['message' => 'The company profile of this service',
