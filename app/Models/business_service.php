@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class business_service extends Model
 {
-    protected $table = 'your_table_name';
+    protected $table = 'business_service';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
