@@ -15,6 +15,7 @@ class business_service extends Model
         'description',
         'lat',
         'lang',
+        'user_id',
     ];
 
     protected $attributes = [

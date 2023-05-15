@@ -19,6 +19,7 @@ class BusinessServiceController extends Controller
             'lang',
             'lat',
 
+
         ]);
 
 
