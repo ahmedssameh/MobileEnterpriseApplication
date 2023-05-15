@@ -29,5 +29,5 @@ Route::group(['middleware'=>'api','prefix'=>'Auth'],function ($router){
     Route::Get('/getCompany',[EditProfileController::class,'getCompany']);
     Route::Get('/getServices',[BusinessServiceController::class,'getServices']);
     Route::Post('/createService',[BusinessServiceController::class,'createService']);
-
+    Route::Post('/favService',[BusinessServiceController::class,'favService']);
 });

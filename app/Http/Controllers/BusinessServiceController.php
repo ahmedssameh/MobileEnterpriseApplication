@@ -40,5 +40,28 @@ class BusinessServiceController extends Controller
         return response()->json($data);
     }
 
+    public function favService(Request $request){
+
+        $validator = Validator::make($request->all(),[
+            'service_id'=>'required|exists:business_service,id',
+        ]);
+
+
+        if($validator->fails()){
+            $errorString = implode("\n", $validator->errors()->all());
+            return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
+        }
+
+        $businessService = Auth::user()->fav_service()->create(array_merge($validator->validated(),
+        ));
+
+        return response()->json(['message'=> 'business Service is put in favourite',
+            'business Service'=> $businessService
+        ],
+            201
+        );
+
+    }
+
 
 }
