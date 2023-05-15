@@ -96,7 +96,7 @@ class BusinessServiceController extends Controller
         if ($businessService) {
 
             return response()->json(['message' => 'The company profile of this service',
-                'Company Profile' =>$user
+                'Company Profile' =>$businessService
             ],
                 201
             );
