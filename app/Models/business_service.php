@@ -16,11 +16,6 @@ class business_service extends Model
         'user_id',
     ];
 
-    protected $attributes = [
-        'lat' => 0,
-        'lang' => 0,
-        // Add default values for other fields here
-    ];
 
     // Add any additional model logic or relationships here
     public function userr()
