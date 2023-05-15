@@ -13,8 +13,6 @@ class business_service extends Model
     protected $fillable = [
         'name',
         'description',
-        'lat',
-        'lang',
         'user_id',
     ];
 
