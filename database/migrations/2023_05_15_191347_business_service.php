@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->double('lat');
             $table->double('lang');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
 
