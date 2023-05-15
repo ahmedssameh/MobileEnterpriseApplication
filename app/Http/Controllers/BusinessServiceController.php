@@ -26,7 +26,7 @@ class BusinessServiceController extends Controller
             return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
         }
 
-        $businessService = Auth::user()->business_service()->create(array_merge($validator->validated(),
+        $businessService = Auth::user()->business_service::create(array_merge($validator->validated(),
         ));
 
         return response()->json(['message'=> 'business Service is created',
