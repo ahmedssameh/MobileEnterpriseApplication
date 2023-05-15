@@ -28,5 +28,6 @@ Route::group(['middleware'=>'api','prefix'=>'Auth'],function ($router){
     Route::Patch('/changePassword',[EditProfileController::class,'changePassword']);
     Route::Get('/getCompany',[EditProfileController::class,'getCompany']);
     Route::Get('/getServices',[BusinessServiceController::class,'getServices']);
+    Route::Post('/createService',[BusinessServiceController::class,'createService']);
 
 });
