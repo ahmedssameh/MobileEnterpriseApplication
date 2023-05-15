@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\business_service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 
 class BusinessServiceController extends Controller
@@ -26,10 +27,10 @@ class BusinessServiceController extends Controller
             return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
         }
 
-        $businessService = business_service::create(array_merge($validator->validated(),
+        $businessService = Auth::user()->business_service()->create(array_merge($validator->validated(),
         ));
 
-        return response()->json(['message'=> 'business Service is registered',
+        return response()->json(['message'=> 'business Service is created',
             'business Service'=> $businessService
         ],
             201
