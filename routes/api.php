@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EditProfileController;
+use App\Http\Controllers\BusinessServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,6 @@ Route::group(['middleware'=>'api','prefix'=>'Auth'],function ($router){
     Route::Patch('/update',[EditProfileController::class,'update']);
     Route::Patch('/changePassword',[EditProfileController::class,'changePassword']);
     Route::Get('/getCompany',[EditProfileController::class,'getCompany']);
+    Route::Get('/getServices',[BusinessServiceController::class,'getServices']);
+
 });
