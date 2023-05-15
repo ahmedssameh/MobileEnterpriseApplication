@@ -18,7 +18,7 @@ class business_service extends Model
 
 
     // Add any additional model logic or relationships here
-    public function userr()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
