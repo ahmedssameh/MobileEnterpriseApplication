@@ -19,10 +19,10 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::table('business_service', function (Blueprint $table) {
+        /*Schema::table('business_service', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-        });
+        });*/
     }
 
     /**
@@ -31,9 +31,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('business_service');
-        Schema::table('business_service', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
-        });
+//        Schema::table('business_service', function (Blueprint $table) {
+//            $table->dropForeign(['user_id']);
+//            $table->dropColumn('user_id');
+//        });
     }
 };
