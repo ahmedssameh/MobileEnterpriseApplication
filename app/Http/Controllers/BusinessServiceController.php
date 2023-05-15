@@ -7,6 +7,8 @@ use App\Models\business_service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 
 class BusinessServiceController extends Controller
@@ -66,9 +68,13 @@ class BusinessServiceController extends Controller
     public function getFavoriteServices()
     {
         $user = Auth::user();
-        $favoriteServices = $user->fav_service()->get();
 
-        return response()->json($favoriteServices);
+        if (!is_null($user)) {
+            $favoriteServices = $user->fav_service()->get();
+            return response()->json($favoriteServices);
+        } else {
+            return response()->json(['error' => 'User not found'], ResponseAlias::HTTP_NOT_FOUND);
+        }
     }
 
 
