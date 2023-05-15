@@ -90,7 +90,8 @@ class BusinessServiceController extends Controller
             return response()->json(['details' => $errorString], 400)->header('Content-Type', 'application/json');
         }
 
-        $businessService = business_service::find($validator);
+        $businessService = business_service::find(array_merge($validator->validated(),
+        ));
 
         if ($businessService) {
 
