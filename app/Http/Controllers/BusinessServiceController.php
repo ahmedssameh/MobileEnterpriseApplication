@@ -16,8 +16,6 @@ class BusinessServiceController extends Controller
         $validator = Validator::make($request->all(),[
             'name'=>'required',
             'description'=>'required',
-            'lang',
-            'lat',
 
 
         ]);
@@ -36,8 +34,6 @@ class BusinessServiceController extends Controller
         ],
             201
         );
-
-
     }
     public function getServices(){
         $data = business_service::all();
