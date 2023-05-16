@@ -90,7 +90,7 @@ class BusinessServiceController extends Controller
             return response()->json(['details' => $errorString], 400)->header('Content-Type', 'application/json');
         }
 
-        $businessService = business_service::where($validator)->first();
+        $businessService = business_service::where($validator->validated())->first();
         //$user=$businessService->user_id;
         if ($businessService) {
 
