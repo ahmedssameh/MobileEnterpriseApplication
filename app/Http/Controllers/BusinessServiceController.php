@@ -81,7 +81,7 @@ class BusinessServiceController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'service_id' => 'required|exists:business_service,id',
+            'id' => 'required|exists:business_service,id',
         ]);
 
 
