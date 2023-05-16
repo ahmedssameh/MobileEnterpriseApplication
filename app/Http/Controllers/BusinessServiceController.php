@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\business_service;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -105,6 +106,35 @@ class BusinessServiceController extends Controller
 
     }
 
+
+
+    public function getCompanyServices(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:User,id',
+        ]);
+
+
+        if ($validator->fails()) {
+            $errorString = implode("\n", $validator->errors()->all());
+            return response()->json(['details' => $errorString], 400)->header('Content-Type', 'application/json');
+        }
+
+        $User = User::where($validator->validated());
+        //$user=$businessService->user_id;
+        if ($User) {
+
+            return response()->json(['message' => 'The company profile of this service',
+                'Company Profile' =>$User->business_service
+            ],
+                201
+            );
+        }
+
+        return response()->json(['error' => 'User not found'], ResponseAlias::HTTP_NOT_FOUND);
+
+    }
 
 
 

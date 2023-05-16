@@ -32,4 +32,5 @@ Route::group(['middleware'=>'api','prefix'=>'Auth'],function ($router){
     Route::Post('/favService',[BusinessServiceController::class,'favService']);
     Route::Get('/getFavoriteServices',[BusinessServiceController::class,'getFavoriteServices']);
     Route::Get('/getServiceCompany',[BusinessServiceController::class,'getServiceCompany']);
+    Route::Get('/getCompanyServices',[BusinessServiceController::class,'getCompanyServices']);
 });
