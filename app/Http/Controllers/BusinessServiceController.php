@@ -121,7 +121,7 @@ class BusinessServiceController extends Controller
             return response()->json(['details' => $errorString], 400)->header('Content-Type', 'application/json');
         }
 
-        $user = User::find($validator->validated()['id']);
+        $user = User::class::find($validator->validated()['id']);
         //$user=$businessService->user_id;
         if ($user) {
 
