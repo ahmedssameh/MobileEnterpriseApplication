@@ -137,5 +137,16 @@ class BusinessServiceController extends Controller
     }
 
 
+    public function getAllCompanies(){
+
+        $users = User::all();
+        return response()->json(['message' => 'All companies',
+            'Companies' =>$users
+        ],
+            201
+        );
+    }
+
+
 
 }
