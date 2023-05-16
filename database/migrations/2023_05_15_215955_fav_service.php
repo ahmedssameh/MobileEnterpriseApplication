@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->primary(['user_id', 'service_id']);
 
-            $table->foreign('user_id')->references('id')->on('User');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('service_id')->references('id')->on('business_service');
         });
     }
