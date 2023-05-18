@@ -71,7 +71,7 @@ class BusinessServiceController extends Controller
         $user = Auth::user();
 
         if (!is_null($user)) {
-            $favoriteServices = $user->fav_service()->get();
+            $favoriteServices = $user->fav_service()->with('service')->get();
             return response()->json($favoriteServices);
         } else {
             return response()->json(['error' => 'User not found'], ResponseAlias::HTTP_NOT_FOUND);

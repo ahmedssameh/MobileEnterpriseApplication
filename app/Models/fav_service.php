@@ -20,4 +20,9 @@ class fav_service extends Model
 
     public $incrementing = false;
 
+    public function service()
+    {
+        return $this->belongsTo(business_service::class, 'service_id');
+    }
+
 }
