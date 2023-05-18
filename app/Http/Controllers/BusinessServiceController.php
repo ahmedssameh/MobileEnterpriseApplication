@@ -55,6 +55,15 @@ class BusinessServiceController extends Controller
             return response()->json(['details'=>$errorString],400)->header('Content-Type', 'application/json');
         }
 
+        $serviceId = $validator->validated()['service_id'];
+
+        // Check if the service is already in the user's favorite list
+        $isAlreadyFavorited = Auth::user()->fav_service()->where('service_id', $serviceId)->exists();
+
+        if ($isAlreadyFavorited) {
+            return response()->json(['message' => 'This service is already in your favorite list'], 401);
+        }
+
         $businessService = Auth::user()->fav_service()->create(array_merge($validator->validated(),
         ));
 
