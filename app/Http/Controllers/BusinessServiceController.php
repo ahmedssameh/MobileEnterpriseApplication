@@ -181,6 +181,63 @@ class BusinessServiceController extends Controller
         );
     }
 
+    public function calculateDistance(Request $request)
+    {
+        // Validate request parameters
+        $validator = Validator::make($request->all(), [
+            'lat' => 'required|numeric',
+            'lon' => 'required|numeric',
+            'service_id' => 'required|exists:business_service,id',
+        ]);
+
+        if ($validator->fails()) {
+            $errorString = implode("\n", $validator->errors()->all());
+            return response()->json(['details' => $errorString], 400);
+        }
+
+        // Get user's latitude and longitude from the request
+        $userLat = $request->input('lat');
+        $userLon = $request->input('lon');
+
+        // Get the company's latitude and longitude based on the provided service ID
+        $serviceId = $request->input('service_id');
+        $company = business_service::table('business_service')
+            ->where('id', $serviceId)
+            ->select('user_id', 'lat', 'lang')
+            ->first();
+
+        if (!$company) {
+            return response()->json(['error' => 'Service not found'], 404);
+        }
+
+        // Calculate the distance using the Haversine formula
+        $distance = $this->calculateDistanceBetweenPoints($userLat, $userLon, $company->lat, $company->lang);
+
+        // Return the distance in the API response
+        return response()->json(['distance' => $distance], 200);
+    }
+
+// Helper function to calculate distance between two points using the Haversine formula
+    private function calculateDistanceBetweenPoints($lat1, $lon1, $lat2, $lon2)
+    {
+        $earthRadius = 6371; // Radius of the Earth in kilometers
+
+        $lat1Rad = deg2rad($lat1);
+        $lon1Rad = deg2rad($lon1);
+        $lat2Rad = deg2rad($lat2);
+        $lon2Rad = deg2rad($lon2);
+
+        $deltaLat = $lat2Rad - $lat1Rad;
+        $deltaLon = $lon2Rad - $lon1Rad;
+
+        $a = sin($deltaLat / 2) ** 2 + cos($lat1Rad) * cos($lat2Rad) * sin($deltaLon / 2) ** 2;
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+        $distance = $earthRadius * $c;
+
+        return $distance;
+    }
+
 
 
 }
