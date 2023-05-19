@@ -84,7 +84,7 @@ class BusinessServiceController extends Controller
         $serviceId = $validator->validated()['service_id'];
 
         // Check if the service is already in the user's favorite list
-        $isAlreadyFavorited = Auth::user()->fav_service()->where('service_id', $serviceId)->exists();
+        $isAlreadyFavorited = Auth::user()->fav_service()->where('service_id', $serviceId);
 
         if ($isAlreadyFavorited) {
             $isAlreadyFavorited->delete();
@@ -107,8 +107,31 @@ class BusinessServiceController extends Controller
         $user = Auth::user();
 
         if (!is_null($user)) {
-            $favoriteServices = $user->fav_service()->with('service')->get();
-            return response()->json(["Services" => $favoriteServices],201);
+            $favoriteServices = $user->fav_service()->get();
+
+            $data = [];
+
+            foreach ($favoriteServices as $service) {
+                $user = User::find($service->user_id);
+
+                if ($user) {
+                    $userName = $user->name;
+                    $userPhoto = $user->photo;
+
+                    $data[] = [
+                        'service_id' => $service->id,
+                        'service_name' => $service->name,
+                        'service_description' => $service->description,
+                        'Company_name' => $userName,
+                        'Company_photo' => $userPhoto,
+                    ];
+                }
+            }
+
+            return response()->json([
+                'message' => 'Favourite Business Services retrieved successfully',
+                'services' => $data
+            ], 201);
         } else {
             return response()->json(['error' => 'User not found'], ResponseAlias::HTTP_NOT_FOUND);
         }
