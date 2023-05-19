@@ -38,10 +38,34 @@ class BusinessServiceController extends Controller
             201
         );
     }
-    public function getServices(){
-        $data = business_service::all();
-        return response()->json($data);
+    public function getServices()
+    {
+        $services = business_service::all();
+
+        $data = [];
+
+        foreach ($services as $service) {
+            $user = User::find($service->user_id);
+
+            if ($user) {
+                $userName = $user->name;
+                $userPhoto = $user->photo;
+
+                $data[] = [
+                    'service_name' => $service->name,
+                    'service_description' => $service->description,
+                    'Company_name' => $userName,
+                    'Company_photo' => $userPhoto,
+                ];
+            }
+        }
+
+        return response()->json([
+            'message' => 'Business Services retrieved successfully',
+            'services' => $data
+        ], 201);
     }
+
 
     public function favService(Request $request){
 
