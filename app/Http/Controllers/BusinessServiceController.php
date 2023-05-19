@@ -204,15 +204,16 @@ class BusinessServiceController extends Controller
         $serviceId = $request->input('service_id');
         $company = DB::table('business_service')
             ->where('id', $serviceId)
-            ->select('user_id', 'lat', 'lang')
+            ->select('user_id')
             ->first();
 
         if (!$company) {
             return response()->json(['error' => 'Service not found'], 404);
         }
+        $user = User::find($company->user_id);
 
         // Calculate the distance using the Haversine formula
-        $distance = $this->calculateDistanceBetweenPoints($userLat, $userLon, $company->lat, $company->lang);
+        $distance = $this->calculateDistanceBetweenPoints($userLat, $userLon, $user->lat, $user->lang);
 
         // Return the distance in the API response
         return response()->json(['distance' => $distance], 200);
