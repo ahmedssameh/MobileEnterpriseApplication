@@ -106,15 +106,12 @@ class BusinessServiceController extends Controller
     {
         $user = Auth::user();
 
-        if (!is_null($user)) {
+        if ($user) {
             $favoriteServices = $user->fav_service()->get();
 
             $data = [];
 
             foreach ($favoriteServices as $service) {
-                $user = User::find($service->user_id);
-
-                if ($user) {
                     $userName = $user->name;
                     $userPhoto = $user->photo;
 
@@ -126,7 +123,7 @@ class BusinessServiceController extends Controller
                         'Company_photo' => $userPhoto,
                     ];
                 }
-            }
+
 
             return response()->json([
                 'message' => 'Favourite Business Services retrieved successfully',
