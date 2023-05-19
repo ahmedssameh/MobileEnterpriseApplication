@@ -115,10 +115,12 @@ class BusinessServiceController extends Controller
                     $userName = $user->name;
                     $userPhoto = $user->photo;
 
+                    $myservice= business_service::find($service->id);
+
                     $data[] = [
-                        'service_id' => $service->id,
-                        'service_name' => $service->name,
-                        'service_description' => $service->description,
+                        'service_id' => $myservice->id,
+                        'service_name' => $myservice->name,
+                        'service_description' => $myservice->description,
                         'Company_name' => $userName,
                         'Company_photo' => $userPhoto,
                     ];
