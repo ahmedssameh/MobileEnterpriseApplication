@@ -47,7 +47,7 @@ class BusinessServiceController extends Controller
 
         foreach ($services as $service) {
             $user = User::find($service->user_id);
-            $isfav=Auth::user()->fav_service()->where('service_id', $service->id)->exsits();
+            $isfav=Auth::user()->fav_service()->where('service_id', $service->id)->where('user_id', Auth::user()->id)->exsits();
             if($isfav){
                 continue;
             }
