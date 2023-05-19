@@ -87,7 +87,7 @@ class BusinessServiceController extends Controller
         $isAlreadyFavorited = $user->fav_service()->where('service_id', $serviceId)->exists();
 
         if ($isAlreadyFavorited) {
-            $user->fav_service()->detach($serviceId);
+            $user->fav_service()->wherePivot('service_id', $serviceId)->detach($serviceId);
             return response()->json(['message' => 'This service is not favourite anymore'], 201);
         }
 
