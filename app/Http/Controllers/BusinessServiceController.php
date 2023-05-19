@@ -87,8 +87,9 @@ class BusinessServiceController extends Controller
         $isAlreadyFavorited = $user->fav_service()->where('service_id', $serviceId)->exists();
 
         if ($isAlreadyFavorited) {
+            $service=$user->fav_service()->where('service_id', $serviceId);
             $user->fav_service()->where('service_id', $serviceId)->delete();
-            return response()->json(['message' => 'This service is not favourite anymore'], 201);
+            return response()->json(['message' => 'This service is not favourite anymore','business Service'=> $service], 201);
         }
 
         $businessService = $user->fav_service()->create(array_merge($validator->validated(),
