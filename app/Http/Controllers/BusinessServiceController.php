@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use Illuminate\Support\Facades\DB;
 
 
 class BusinessServiceController extends Controller
@@ -201,7 +202,7 @@ class BusinessServiceController extends Controller
 
         // Get the company's latitude and longitude based on the provided service ID
         $serviceId = $request->input('service_id');
-        $company = business_service::table('business_service')
+        $company = DB::table('business_service')
             ->where('id', $serviceId)
             ->select('user_id', 'lat', 'lang')
             ->first();
