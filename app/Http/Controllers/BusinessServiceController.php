@@ -52,6 +52,7 @@ class BusinessServiceController extends Controller
                 $userPhoto = $user->photo;
 
                 $data[] = [
+                    'service_id' => $service->id,
                     'service_name' => $service->name,
                     'service_description' => $service->description,
                     'Company_name' => $userName,
