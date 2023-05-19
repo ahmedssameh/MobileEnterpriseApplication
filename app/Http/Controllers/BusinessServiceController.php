@@ -84,10 +84,10 @@ class BusinessServiceController extends Controller
         $serviceId = $validator->validated()['service_id'];
         $user = Auth::user();
         // Check if the service is already in the user's favorite list
-        $isAlreadyFavorited = $user->fav_service()->where('service_id', $serviceId)->first();
+        $isAlreadyFavorited = $user->fav_service()->where('service_id', $serviceId)->exists();
 
         if ($isAlreadyFavorited) {
-            $isAlreadyFavorited->delete();
+            $isAlreadyFavorited->detach($serviceId);
             return response()->json(['message' => 'This service is not favourite anymore'], 201);
         }
 
