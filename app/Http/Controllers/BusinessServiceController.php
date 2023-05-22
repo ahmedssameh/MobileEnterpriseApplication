@@ -268,6 +268,42 @@ class BusinessServiceController extends Controller
         return $distance;
     }
 
+    public function getAllCompaniesProvideService(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'service_name' => 'required',
+        ]);
+
+
+        if ($validator->fails()) {
+            $errorString = implode("\n", $validator->errors()->all());
+            return response()->json(['details' => $errorString], 400)->header('Content-Type', 'application/json');
+        }
+        $data=[];
+        $businessService = business_service::where('service_name',$validator->validated());
+        //$user=$businessService->user_id;
+        if ($businessService) {
+            foreach ($businessService as $service) {
+            $company = User::find($service->user_id);
+
+                $data[] = [
+                    'company' =>$company
+
+                ];
+
+            }
+
+
+        }
+
+        return response()->json(['message' => 'The company profile of this service',
+            'Company Profile' =>$data
+        ],
+            201
+        );
+
+    }
 
 
 }

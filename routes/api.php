@@ -35,4 +35,5 @@ Route::group(['middleware'=>'api','prefix'=>'Auth'],function ($router){
     Route::Get('/getCompanyServices',[BusinessServiceController::class,'getCompanyServices']);
     Route::Get('/getAllCompanies',[BusinessServiceController::class,'getAllCompanies']);
     Route::Get('/calculateDistance',[BusinessServiceController::class,'calculateDistance']);
+    Route::Get('/getAllCompaniesProvideService',[BusinessServiceController::class,'getAllCompaniesProvideService']);
 });
