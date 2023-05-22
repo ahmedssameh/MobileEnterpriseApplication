@@ -186,16 +186,29 @@ class BusinessServiceController extends Controller
 
         $user = User::find($validator->validated()['id']);
         //$user=$businessService->user_id;
+        $data=[];
         if ($user) {
+            foreach ($user->business_service as $service) {
+                $userName = $user->name;
+                $userPhoto = $user->photo;
 
-            return response()->json(['message' => 'The services of the company',
-                'Services' =>$user->business_service
+                $data[] = [
+                    'service_id' => $service->id,
+                    'service_name' => $service->name,
+                    'service_description' => $service->description,
+                    'Company_name' => $userName,
+                    'Company_photo' => $userPhoto,
+                ];
+            }
+        }
+
+
+
+        return response()->json(['message' => 'The services of the company',
+                'Services' =>$data
             ],
                 201
             );
-        }
-
-        return response()->json(['error' => 'User not found'], ResponseAlias::HTTP_NOT_FOUND);
 
     }
 
