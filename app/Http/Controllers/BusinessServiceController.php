@@ -281,7 +281,7 @@ class BusinessServiceController extends Controller
             return response()->json(['details' => $errorString], 400)->header('Content-Type', 'application/json');
         }
         $data=[];
-        $businessService = business_service::where('service_name',$validator->validated());
+        $businessService = business_service::where('service_name',$validator->validated())->get();
         //$user=$businessService->user_id;
         if ($businessService) {
             foreach ($businessService as $service) {
