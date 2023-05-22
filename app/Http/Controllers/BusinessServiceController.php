@@ -62,6 +62,7 @@ class BusinessServiceController extends Controller
                     'service_description' => $service->description,
                     'Company_name' => $userName,
                     'Company_photo' => $userPhoto,
+                    'Company_id' => $user->id,
                 ];
             }
         }
@@ -128,6 +129,7 @@ class BusinessServiceController extends Controller
                         'service_description' => $myservice->description,
                         'Company_name' => $userName,
                         'Company_photo' => $userPhoto,
+                        'Company_id' => $user->id,
                     ];
                 }
 
@@ -198,6 +200,7 @@ class BusinessServiceController extends Controller
                     'service_description' => $service->description,
                     'Company_name' => $userName,
                     'Company_photo' => $userPhoto,
+                    'Company_id' => $user->id,
                 ];
             }
         }
