@@ -147,7 +147,7 @@ class BusinessServiceController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id' => 'required|exists:business_service,id',
+            'id' => 'required|exists:users,id',
         ]);
 
 
@@ -156,12 +156,12 @@ class BusinessServiceController extends Controller
             return response()->json(['details' => $errorString], 400)->header('Content-Type', 'application/json');
         }
 
-        $businessService = business_service::where($validator->validated())->first();
+        $businessService = User::where($validator->validated())->get();
         //$user=$businessService->user_id;
         if ($businessService) {
 
             return response()->json(['message' => 'The company profile of this service',
-                'Company Profile' =>$businessService->user
+                'Company Profile' =>$businessService
             ],
                 201
             );
