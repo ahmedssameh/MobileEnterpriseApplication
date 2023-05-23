@@ -132,6 +132,8 @@ class BusinessServiceController extends Controller
                         'Company_name' => $userName,
                         'Company_photo' => $userPhoto,
                         'Company_id' => $user->id,
+                        'Company_lat' =>$user->lat,
+                        'Company_long' =>$user->lang,
                     ];
                 }
 
@@ -203,6 +205,8 @@ class BusinessServiceController extends Controller
                     'Company_name' => $userName,
                     'Company_photo' => $userPhoto,
                     'Company_id' => $user->id,
+                    'Company_lat' =>$user->lat,
+                    'Company_long' =>$user->lang,
                 ];
             }
         }
